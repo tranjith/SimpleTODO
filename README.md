@@ -9,4 +9,4 @@ Complete User Stories:
 1. successfully add and remove items
 2. Persist TODO items to file
 
-![Alt text](https://github.com/tranjith/SimpleTODO/blob/master/SimpleTodo.gif TODO.gif)
+![Alt text](https://github.com/tranjith/SimpleTODO/blob/master/SimpleTodo.gif "TODO.gif")
