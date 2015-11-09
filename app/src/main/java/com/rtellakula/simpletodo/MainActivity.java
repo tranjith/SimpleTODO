@@ -1,5 +1,6 @@
 package com.rtellakula.simpletodo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> items;
     ArrayAdapter<String> itemsAdapter;
     ListView lvItems;
+    private final int REQUEST_CODE = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         itemsAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items);
         lvItems.setAdapter(itemsAdapter);
         setupListViewListener();
+        setupListViewOnClickListener();
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -60,12 +63,43 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    private void setupListViewOnClickListener(){
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                launchEditView(items.get(position), position);
+            }
+        });
+    }
+
+    public void launchEditView(String item, int position){
+        Intent editIntent = new Intent(MainActivity.this,EditItemActivity.class);
+        editIntent.putExtra("editItem",item);
+        editIntent.putExtra("position",position);
+        startActivityForResult(editIntent, REQUEST_CODE);
+    }
+
     public void onAddItem(View v){
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
         itemsAdapter.add(itemText);
         etNewItem.setText("");
         writeItems();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        System.out.println("Called on Activity result" + resultCode + " - Request " + requestCode);
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE){
+            String item = (String)data.getStringExtra("editItem");
+            int position = (Integer)data.getSerializableExtra("position");
+            items.set(position,item);
+            System.out.println("New Item Description is : " + item + " - " + position) ;
+            System.out.println("Items" + items);
+            itemsAdapter.notifyDataSetChanged();
+            writeItems();
+        }
     }
 
     @Override
