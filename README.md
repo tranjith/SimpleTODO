@@ -10,4 +10,4 @@ Complete User Stories:
 2. Edit item in new activity
 3. Persist TODO items to file
 
-![Alt text](https://github.com/tranjith/SimpleTODO/blob/master/SimpleTodo.gif TODO.gif)
+![Alt text](https://github.com/tranjith/SimpleTODO/blob/master/SimpleTodo.gif "TODO.gif")
