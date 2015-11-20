@@ -8,6 +8,6 @@ Complete User Stories:
 
 1. successfully add and remove items
 2. Edit item in new activity
-3. Persist TODO items to file
+3. Persist TODO items to SQLLite Database
 
 ![Alt text](https://github.com/tranjith/SimpleTODO/blob/master/SimpleTodo.gif "TODO.gif")
